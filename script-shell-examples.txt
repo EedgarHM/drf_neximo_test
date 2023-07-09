@@ -1,0 +1,15 @@
+curl -i -X POST "http://localhost:8000/api/payments/" -H "Content-Type: application/json" -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImVlZGdhci5obWFyY0BnbWFpbC5jb20ifQ.M0M14r8CNiwH-S92GcEk4lSfgZMA3rrDD7B7M9XvzDo" -d "[{\"amount\": 60,\"currency\": \"USD\"},{\"amount\": 20,\"currency\": \"USD\"},{\"amount\": 1160,\"currency\": \"MXN\"}]"
+
+curl -i -X POST "http://localhost:8000/api/payments/" -H "Content-Type: application/json" -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImVlZGdhci5obWFyY0BnbWFpbC5jb20ifQ.M0M14r8CNiwH-S92GcEk4lSfgZMA3rrDD7B7M9XvzDo" -d "[{\"amount\": 60,\"currency\": \"USD\"},{\"amount\": 1160,\"currency\": \"MXN\"}]"
+
+curl -i -X POST "http://localhost:8000/api/payments/" -H "Content-Type: application/json" -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImVlZGdhci5obWFyY0BnbWFpbC5jb20ifQ.M0M14r8CNiwH-S92GcEk4lSfgZMA3rrDD7B7M9XvzDo" -d '[{"amount": 25, "currency": "USD"}]'
+
+curl -i -X POST "http://localhost:8000/api/payments/" -H "Content-Type: application/json" -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImVlZGdhci5obWFyY0BnbWFpbC5jb20ifQ.M0M14r8CNiwH-S92GcEk4lSfgZMA3rrDD7B7M9XvzDo" -d '[{"amount": 60,"currency": "USD"},{"amount": 20,"currency": "USD"},{"amount": 1160,"currency": "MXN"}]'
+
+curl -i -X POST "http://localhost:8000/api/payments/" -H "Content-Type: application/json" -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImVlZGdhci5obWFyY0BnbWFpbC5jb20ifQ.M0M14r8CNiwH-S92GcEk4lSfgZMA3rrDD7B7M9XvzDo" -d "[{"amount": 300,"currency": "USD",},{"amount": 20,"currency": "USD"},{"amount": 2310,"currency": "MXN"},{"amount": 100,"currency": "MXN"}]"
+
+
+
+[{"amount": 300,"currency": "USD",},{"amount": 20,"currency": "USD"},{"amount": 2310,"currency": "MXN"},{"amount": 100,"currency": "MXN"}]
+
+curl -i -X POST "http://localhost:8000/api/payments/" -H "Content-Type: application/json" -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImVlZGdhci5obWFyY0BnbWFpbC5jb20ifQ.M0M14r8CNiwH-S92GcEk4lSfgZMA3rrDD7B7M9XvzDo" -d '[{"amount": 300,"currency": "USD"},{"amount": 20,"currency": "USD"},{"amount": 2310,"currency": "MXN"},{"amount": 100,"currency": "MXN"}]'

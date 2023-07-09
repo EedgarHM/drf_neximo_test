@@ -110,25 +110,29 @@ def payments(request):
              # Check if the currency is USD or MXN
 
             for item in data:
-                # Check if the currency is USD or MXN
-                if item['currency'] == 'MXN':
-                    #check amount
-                    if item['amount'] <=500:
-                        total_amount+=item['amount'] 
+                if item['currency'].upper() =='MXN':
+                    
+                    if item['amount']<=500:
+                        total_amount += item['amount']
                     else:
-                        total_amount = int(item['amount']  / (1 + 0.16) )
-                        taxes+= int(total_amount * 0.16)
+                        taxes+= int(item['amount']  / (1.16) ) * 0.16
+                        total_amount +=item['amount'] - (item['amount']  / (1.16) ) * 0.16
+
+                elif item['currency'].upper() =='USD':
+                    currency_mx = item['amount'] * 17
+
+                    if currency_mx<=500:
+                       amount_before_taxes = currency_mx - (currency_mx * 0.03)
+                       total_amount += amount_before_taxes
+                       commission +=  currency_mx * 0.03
+                    else:
+                       amount_before_taxes = currency_mx - (currency_mx * 0.16)
+                       commission += amount_before_taxes * 0.03
+                       taxes += amount_before_taxes * 0.16
+                       total_amount += amount_before_taxes   
                 else:
-                    print("Estamos en el else")
-                    # convert the amount and check it
-                    total_currency_amount_mx = int(item['amount'] * 17)
-                    if total_currency_amount_mx <=500:
-                        total_amount+=total_currency_amount_mx
-                        commission += total_currency_amount_mx * 1.03
-                    else:
-                        commission += total_currency_amount_mx * 0.03
-                        taxes += total_currency_amount_mx * 0.16
-                        total_amount += total_currency_amount_mx * 1.19
+                    return Response({'msg':'Currency Id No Valid'})
+
             response = {
                 "total" : total_amount,
                 "taxes" : taxes,
