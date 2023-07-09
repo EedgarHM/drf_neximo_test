@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Registro de Usuario</h1>
+    <form method="post" action="/api/register/">
+      {% csrf_token %}
+      <div class="form-group">
+
+        {% if messages %}
+        <div id="message-container">
+          {% for message in messages %}
+          <div class="message {% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Registrar</button>
+    </form>
+
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      setTimeout(function() {
+        $('.message').fadeOut('slow');
+      }, 2000); // Ocultar el mensaje después de 2000 milisegundos (2 segundos)
+    });
+  </script>
+{% endblock %}

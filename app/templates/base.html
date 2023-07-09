@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Título de la página</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+  <!-- Aquí van los enlaces a los archivos CSS y JavaScript -->
+</head>
+<body>
+  <header>
+    <!-- Aquí va el contenido del encabezado -->
+  </header>
+
+  <nav>
+    <!-- Aquí va el contenido de la barra de navegación -->
+  </nav>
+
+  <main>
+    <!-- Aquí va el contenido específico de cada página -->
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    <!-- Aquí va el contenido del pie de página -->
+  </footer>
+</body>
+</html>
