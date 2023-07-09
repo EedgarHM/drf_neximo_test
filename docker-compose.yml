@@ -19,6 +19,7 @@ services:
       - DB_NAME=devdb
       - DB_USER=devuser
       - DB_PASS=neximotest
+      - SECRET_KEY=neximo_example_secret_key
     depends_on:
       - db
 

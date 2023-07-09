@@ -5,7 +5,8 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sz8$&9#q2h1%321(6^bcfez!yt^=zn^r-dc(@^@hv_fjkzdm2g'
+#SECRET_KEY = 'django-insecure-sz8$&9#q2h1%321(6^bcfez!yt^=zn^r-dc(@^@hv_fjkzdm2g'
+SECRET_KEY = 'neximo_example_secret_key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -35,6 +36,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 ROOT_URLCONF = 'app.urls'
