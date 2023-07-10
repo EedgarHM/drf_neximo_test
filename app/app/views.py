@@ -14,39 +14,39 @@ from app.utils.validate_token import validate_token
 
 User = get_user_model()
 
-def register_user(request):
-    if request.method == 'POST':
+def register_user(request): 
+    if request.method == 'POST': 
 
         form = RegistrationForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid(): 
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             name = form.cleaned_data['name']
 
-            try:
-                if User.objects.filter(email=email).exists():
+            try: 
+                if User.objects.filter(email=email).exists(): 
                     messages.error(request, 'User already exists')
-                else:
+                else: 
                     user = User.objects.create_user(email=email, password=password, name=name)
                     messages.success(request,'User saved correctly')
                     return redirect('registration_success')
                 
-            except Exception as e:
-                return render(request, 'register.html', {'form': form, 'error_message': 'Error registering user'})
-    else:
+            except Exception as e: 
+                return render(request, 'register.html', {'form':  form, 'error_message':  'Error registering user'})
+    else: 
         form = RegistrationForm()
     
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html', {'form':  form})
 
 
-def login(request):
+def login(request): 
     """ Login form """
-    if request.method == "POST":
+    if request.method == "POST": 
 
         form = LoginForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid(): 
                 
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -55,7 +55,7 @@ def login(request):
             # User autentication
             user = authenticate(request, email=email, password = password)
 
-            if user is not None:
+            if user is not None: 
 
                 # Generate JTW if the user is right
                 jwt_token = generate_token(user)
@@ -63,42 +63,42 @@ def login(request):
                 print(f"token de autenticacion {jwt_token}")
                 return redirect(f'/api/payments?token={jwt_token}')
             
-            else:
+            else: 
                 messages.error(request, 'Credentials are not valid')
                 form.add_error(None, 'Credentials are not valid')
-    else:
+    else: 
         form = LoginForm()
     
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form':  form})
 
 
 
 @api_view(['POST'])
-def payments(request):
+def payments(request): 
 
     USD_CURRENCY = 17
 
     token=''
 
     authorization_header = request.META.get('HTTP_AUTHORIZATION')
-    if authorization_header and authorization_header.startswith('JWT '):
-        token = authorization_header[4:]
+    if authorization_header and authorization_header.startswith('JWT '): 
+        token = authorization_header[4: ]
 
-    if not token:
+    if not token: 
         messages.error(request, 'Token Required')
-        if request.META.get('HTTP_ACCEPT') == '*/*':
-            return Response({'Error' :'Token must be sended'})
-    else:
+        if request.META.get('HTTP_ACCEPT') == '*/*': 
+            return Response({'Error' : 'Token must be sended'})
+    else: 
         is_token_valid = validate_token(token)
 
-        if not is_token_valid:
+        if not is_token_valid: 
             messages.error(request, 'Token is not valid')
-            if request.META.get('HTTP_ACCEPT') == '*/*':
-                return Response({'Error':'Token no válido','status':status.HTTP_401_UNAUTHORIZED})
-            else:
-                return Response({'Error':'Token no válido','status':status.HTTP_401_UNAUTHORIZED})
+            if request.META.get('HTTP_ACCEPT') == '*/*': 
+                return Response({'Error': 'Token no válido','status': status.HTTP_401_UNAUTHORIZED})
+            else: 
+                return Response({'Error': 'Token no válido','status': status.HTTP_401_UNAUTHORIZED})
 
-        if request.method == 'POST':
+        if request.method == 'POST': 
 
             response = {}
             data = request.data
@@ -109,33 +109,33 @@ def payments(request):
 
              # Check if the currency is USD or MXN
 
-            for item in data:
-                if item['currency'].upper() =='MXN':
+            for item in data: 
+                if item['currency'].upper() =='MXN': 
                     
-                    if item['amount']<=500:
+                    if item['amount']<=500: 
                         total_amount += item['amount']
-                    else:
+                    else: 
                         taxes+= int(item['amount']  / (1.16) ) * 0.16
                         total_amount +=item['amount'] - (item['amount']  / (1.16) ) * 0.16
 
-                elif item['currency'].upper() =='USD':
+                elif item['currency'].upper() =='USD': 
                     currency_mx = item['amount'] * 17
 
-                    if currency_mx<=500:
+                    if currency_mx<=500: 
                        amount_before_taxes = currency_mx - (currency_mx * 0.03)
                        total_amount += amount_before_taxes
                        commission +=  currency_mx * 0.03
-                    else:
+                    else: 
                        amount_before_taxes = currency_mx - (currency_mx * 0.16)
                        commission += amount_before_taxes * 0.03
                        taxes += amount_before_taxes * 0.16
                        total_amount += amount_before_taxes   
-                else:
-                    return Response({'msg':'Currency Id No Valid'})
+                else: 
+                    return Response({'msg': 'Currency Id No Valid'})
 
             response = {
-                "total" : total_amount,
-                "taxes" : taxes,
-                "commission" : commission
+                "total" :  total_amount,
+                "taxes" :  taxes,
+                "commission" :  commission
             }
-        return Response({'response': response})
+        return Response({'response':  response})
